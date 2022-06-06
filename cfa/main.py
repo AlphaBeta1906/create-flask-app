@@ -25,7 +25,7 @@ def create_flask_app():
 
 @create_flask_app.command()
 @click.option("-o","--output",default=".",help="output dir",metavar="<dir>")
-@click.option("-t","--template",help="template name",default="min_api",metavar="<template>")
+@click.option("-t","--template",help="template name",default="min_api",metavar="<template_name>")
 def new(output: str,template: str):
     """generate new flask project template"""
     try:
