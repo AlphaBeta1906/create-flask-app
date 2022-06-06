@@ -107,23 +107,23 @@ def donwload(template: str,path: str,output: str = ".",copy: bool=False,download
         os.makedirs(cache_path)
     
     try:
-        FILENAME = f"{cache_path}{template}.zip"
-        if not os.path.exists(FILENAME):            
+        TEMPLATE_ARCHIVE = f"{cache_path}{template}.zip"
+        if not os.path.exists(TEMPLATE_ARCHIVE):            
             download_file(template)
         elif is_update:
             if not os.path.exists(f"{path}/{template}/"):
                 click.echo("template not found")
                 return 
-            rmtree(FILENAME)
+            rmtree(TEMPLATE_ARCHIVE)
             download_file(template)                    
         else:
             click.echo("copy template from cache")
             
-        zipdata = zipfile.ZipFile(FILENAME)
+        zipdata = zipfile.ZipFile(TEMPLATE_ARCHIVE)
         folders_in_archive = zipdata.infolist()
         original_name = folders_in_archive[0].filename
         
-        unpack_archive(FILENAME,extract_dir=f"{path}")        
+        unpack_archive(TEMPLATE_ARCHIVE,extract_dir=f"{path}")        
         os.rename(f"{path}/{original_name}/",f"{path}/{template}")
         
         click.echo(f"downloading template success,you can use this template by running `create-flask-app new -t {template} ` ")
