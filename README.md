@@ -1,5 +1,3 @@
-[![Python package](https://github.com/AlphaBeta1906/create-flask-app/actions/workflows/python-package.yml/badge.svg)](https://github.com/AlphaBeta1906/create-flask-app/actions/workflows/python-package.yml)
-
 # create-flask-app
 
 a simple cli tools to create project template for flask app and help you set up flask project more quickly
@@ -17,3 +15,5 @@ flask-create-app new -o myProject
 - [ ] Use somthing other than file to list templates
 - [ ] Make more bit like package manager but for project templates
 - [ ] A website for templates?
+
+*Note: this project still under development*
