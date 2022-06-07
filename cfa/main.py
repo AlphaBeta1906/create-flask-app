@@ -43,6 +43,7 @@ def new(output: str,template: str):
     else:
         echo("flask template exist,copying...")
         echo(f"successfully copying {template} project template ")
+        echo(f"run 'cd {output}' to change to project directory")
         echo("\n")
         echo("run 'pip install -r requirements.txt' to install dependencies")
         echo("\n")
