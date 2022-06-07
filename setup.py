@@ -25,7 +25,7 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3 :: Only",
     ],
-    install_requires=["Click","Gitpython"],
+    install_requires=["Click","requests"],
     keywords="automation,tools ,cli,project,template,flask,development,web,api",    
     python_requires=">=3.7",
 )
