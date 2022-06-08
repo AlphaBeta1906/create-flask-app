@@ -1,4 +1,4 @@
-# a list of templates
+# a list of available templates
 url: list = {
     "min_api": ["https://github.com/AlphaBeta1906/flask_min_api_template/archive/refs/tags/v0.1.zip","a minimal flask rest api"],
     "min_web_app": ["https://github.com/AlphaBeta1906/flask_min_web_app_template/archive/refs/tags/v0.1.zip","a minimal flask web app with html templates"],
