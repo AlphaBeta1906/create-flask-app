@@ -2,14 +2,17 @@ from setuptools import setup,find_packages
 
 setup(
     name="create-flask-app",
-    version="0.0.1",
+    version="0.0.1-beta",
     description="a simple cli tools to generate template for flask app",
     license="MIT",
     author="fariz",
     packages=find_packages(),
     include_package_data=True,
     author_email="farizi1906@gmail.com",
+    maintainer="https://github.com/AlphaBeta1906",
     py_modules=["main"],
+    url="https://github.com/AlphaBeta1906/create-flask-app",
+    download_url="https://github.com/AlphaBeta1906/create-flask-app/archive/refs/tags/v0.1-beta.tar.gz",
     entry_points="""
         [console_scripts]
         create-flask-app= cfa.main:create_flask_app
