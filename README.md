@@ -4,6 +4,11 @@ a simple cli tools to create project template for flask app and help you set up 
 
 current version : 0.0.1
 
+## installation
+```bash
+pip install flask-create-project
+```
+
 ## simple usage
 ```bash
 flask-create-app new -o myProject
