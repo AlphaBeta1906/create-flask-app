@@ -1,5 +1,6 @@
 from requests.exceptions import ConnectionError
 from click import group,version_option,option,argument,echo
+import click_completion
 
 import requests
 
@@ -7,7 +8,7 @@ from shutil import copytree,ignore_patterns,unpack_archive,rmtree,chown
 from distutils.errors import DistutilsError
 from pathlib import Path
 import os
-import zipfile
+import zipfile 
 
 from .url import url
 
