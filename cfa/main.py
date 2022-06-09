@@ -15,6 +15,8 @@ from .url import url
 path = os.path.join(Path.home(),".create-flask-app/")
 cache_path = os.path.join(Path.home(),".create-flask-app-cache/")
 
+click_completion.init()
+
 @group()
 @version_option("0.0.1", help="Show version") 
 def create_flask_app():
@@ -105,6 +107,7 @@ def remove(template: str):
     echo(f"succesffully deleting template `{template}`")
 
 
+def download_file(template: str):
     template = template.replace('-','_')
     echo(f"downloading template '{template}' from {url[template][0]} ")
     repo = requests.get(url[template][0])
