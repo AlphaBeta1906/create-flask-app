@@ -27,6 +27,7 @@ def create_flask_app():
 @option("-o","--output",default=".",help="output dir",metavar="<dir>")
 @option("-t","--template",help="template name",default="min_api",metavar="<template_name>")
 def new(output: str,template: str):
+    template = template.replace("-", "_")
     """generate new flask project template"""
     try:
         try:
@@ -84,6 +85,7 @@ def get(template: str):
 @create_flask_app.command()
 @option("-t","--template",help="template name",metavar="<template>",default="min_api")
 def update(template: str):
+    template = template.replace('-','_')
     """update exisiting template"""
     echo("updating template...")
     rmtree(f"{path}/{template}/")
@@ -94,6 +96,7 @@ def update(template: str):
 @argument("template",metavar="<template>")
 def remove(template: str):
     """remove selected template"""
+    template = template.replace('-','_')
     template_path = f"{path}{template}"
     if not os.path.exists(template_path):
          echo(f"template '{template}' not found")
@@ -101,7 +104,7 @@ def remove(template: str):
     echo(f"succesffully deleting template `{template}`")
 
 
-def download_file(template):
+    template = template.replace('-','_')
     echo(f"downloading template '{template}' from {url[template][0]} ")
     repo = requests.get(url[template][0])
     with open(f"{cache_path}{template}.zip","wb") as file:
