@@ -144,6 +144,7 @@ def donwload(template: str,path: str,output: str = ".",copy: bool=False,download
         folders_in_archive = zipdata.infolist()
         original_name = folders_in_archive[0].filename
         
+        if not os.path.exists(f"{path}/{template}/"):
         unpack_archive(TEMPLATE_ARCHIVE,extract_dir=f"{path}")        
         os.rename(f"{path}/{original_name}/",f"{path}/{template}")
         
