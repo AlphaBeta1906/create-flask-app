@@ -30,17 +30,23 @@ def create_flask_app():
 @option("-o","--output",default=".",help="output dir",metavar="<dir>")
 @option("-t","--template",help="template name",default="min_api",metavar="<template_name>")
 def new(output: str,template: str):
-    template = template.replace("-", "_")
     """generate new flask project template"""
+    template = template.replace("-", "_")
     try:
         try:
             url[template]
             copytree(f"{path}/{template}/",output,ignore=ignore_patterns(".git"), dirs_exist_ok=True)
         except KeyError:
             error_msg(template)
+            quit()
             return
+        except FileNotFoundError:
+            echo("flask template not found,clone new one from remote...")
+        
+            # download/clone template
+            donwload(template, path,output,copy=True)            
     except DistutilsError:
-        echo("flask template dir not found,clone new one from remote...")
+        echo("flask template not found,clone new one from remote...")
         
         # download/clone template
         donwload(template, path,output,copy=True)
@@ -88,8 +94,9 @@ def get(template: str):
 @create_flask_app.command()
 @option("-t","--template",help="template name",metavar="<template>",default="min_api")
 def update(template: str):
-    template = template.replace('-','_')
     """update exisiting template"""
+    
+    template = template.replace('-','_')
     echo("updating template...")
     rmtree(f"{path}/{template}/")
     donwload(template, f"{path}/{template}/")
@@ -110,17 +117,25 @@ def remove(template: str):
 def download_file(template: str):
     template = template.replace('-','_')
     echo(f"downloading template '{template}' from {url[template][0]} ")
-    repo = requests.get(url[template][0])
-    with open(f"{cache_path}{template}.zip","wb") as file:
-        
+    repo =  requests.get(url[template][0]) 
+    with open(f"{cache_path}{template}.zip","wb") as file:        
         file.write(repo.content)
         file.close()        
     
 
 def error_msg(template: str):
+     """
+     display error message when template not found
+     """
      echo(f"template with name '{template}' not found")
+     quit()
 
 def donwload(template: str,path: str,output: str = ".",copy: bool=False,download: bool=False,is_update: bool=False):
+    """
+    this function is different from :func:`download_file`, 
+    because this function will use :func:`download_file` 
+    and copy downloaded file to output dir
+    """
     if not os.path.exists(path):
         os.makedirs(path)
     
@@ -129,6 +144,7 @@ def donwload(template: str,path: str,output: str = ".",copy: bool=False,download
     
     try:
         TEMPLATE_ARCHIVE = f"{cache_path}{template}.zip"
+        
         if not os.path.exists(TEMPLATE_ARCHIVE):            
             download_file(template)
         elif is_update:
@@ -145,8 +161,8 @@ def donwload(template: str,path: str,output: str = ".",copy: bool=False,download
         original_name = folders_in_archive[0].filename
         
         if not os.path.exists(f"{path}/{template}/"):
-        unpack_archive(TEMPLATE_ARCHIVE,extract_dir=f"{path}")        
-        os.rename(f"{path}/{original_name}/",f"{path}/{template}")
+            unpack_archive(TEMPLATE_ARCHIVE,extract_dir=f"{path}")        
+            os.rename(f"{path}/{original_name}/",f"{path}/{template}")
         
         echo(f"downloading template success,you can use this template by running `create-flask-app new -t {template} ` ")
         
@@ -157,7 +173,11 @@ def donwload(template: str,path: str,output: str = ".",copy: bool=False,download
         return    
     except ConnectionError:
         echo("connection error")
+        quit()
         return
     except FileExistsError:
+        echo(f"template already exist,you can run `create-flask-app new -t {template} -o .` to start using it ")
+        return
+    except OSError:
         echo(f"template already exist,you can run `create-flask-app new -t {template} -o .` to start using it ")
         return
