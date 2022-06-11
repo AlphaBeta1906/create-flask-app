@@ -1,16 +1,40 @@
 from requests.exceptions import ConnectionError
 from click import group,version_option,option,argument,echo
-import click_completion
+from InquirerPy import prompt
 
+import click_completion
 import requests
 
 from shutil import copytree,ignore_patterns,unpack_archive,rmtree,chown
 from distutils.errors import DistutilsError
 from pathlib import Path
+from typing import TypedDict
+
 import os
 import zipfile 
 
 from .url import url
+
+PROMPT = [
+    {
+        "type": "input",
+        "message": "What's your project name(empty or '.' means current dir)?",
+        "name": "name",
+        "default": "."
+    },
+    {
+        "type": "list",
+        "message": "select template",
+        "choices": [name.replace("_","-") for name in url.keys()],
+        "name": "template"
+    },
+    {
+        "type": "confirm",
+        "message": "Are you sure to use this configuration?",
+        "default": False,
+        "name": "confirmation"
+    }
+]
 
 path = os.path.join(Path.home(),".create-flask-app/")
 cache_path = os.path.join(Path.home(),".create-flask-app-cache/")
@@ -31,6 +55,7 @@ def create_flask_app():
 @option("-t","--template",help="template name",default="min_api",metavar="<template_name>")
 def new(output: str,template: str):
     """generate new flask project template"""
+    
     template = template.replace("-", "_")
     try:
         try:
@@ -62,6 +87,18 @@ def new(output: str,template: str):
         echo("app will start at http://localhost:5000 (or try http://localhost:5000/api/v1/ if the first one is 404 not found)")
         echo("\n")
         echo("make sure to README.md first to know more about the template")
+
+@create_flask_app.command()
+def create():
+    """
+    simliar like `new` command but more interactive
+    """
+    
+    # for now there are no real function for this command
+    result = prompt(PROMPT,vi_mode=True)
+    print(result["name"])
+    print(result["template"])
+    print(result["confirmation"])
 
 @create_flask_app.command()
 @option("--local","-l",is_flag=True,default=False,show_default=False)
@@ -181,3 +218,6 @@ def donwload(template: str,path: str,output: str = ".",copy: bool=False,download
     except OSError:
         echo(f"template already exist,you can run `create-flask-app new -t {template} -o .` to start using it ")
         return
+
+def create_project(template: str,output: str):
+    pass
