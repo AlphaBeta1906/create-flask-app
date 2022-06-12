@@ -8,7 +8,6 @@ import requests
 from shutil import copytree,ignore_patterns,unpack_archive,rmtree,chown
 from distutils.errors import DistutilsError
 from pathlib import Path
-from typing import TypedDict
 
 import os
 import zipfile 
@@ -61,12 +60,19 @@ def new(output: str,template: str):
 @create_flask_app.command()
 def create():
     """
-    simliar like `new` command but more interactive
+    more interactive version of 'new' command
     """
     
     # for now there are no real function for this command
     result = prompt(PROMPT,vi_mode=True)
+    name = result["name"]
+    template = result["template"]
+    
     if not result["confirmation"]:
+        echo("project creation canceled")
+        quit()
+    
+    create_project(template, output=name)
 
 @create_flask_app.command()
 @option("--local","-l",is_flag=True,default=False,show_default=False)
@@ -118,6 +124,44 @@ def remove(template: str):
     os.system(f"rm -rf {path}{template}")
     echo(f"succesffully deleting template `{template}`")
 
+@create_flask_app.command()
+def test():
+    from jinja2 import Template
+    """
+    just testing the inquirer checkbox
+    """
+    PROMPT = [
+        {
+            "message": "Select Additional files:",
+            "type": "checkbox",
+            "choices": [
+                "Pepperoni",
+                "Mushrooms",
+                "Sausage",
+                "Onions",
+                "Bacon",
+                "Extra Cheese",
+                "Peppers",
+                "Black Olives",
+                "Chicken",
+                "Pineapple",
+                "Spinach",
+                "Fresh Basil",
+                "Ham",
+                "Pesto",
+                "Beef",
+            ],
+            "name": "additional_files"
+        },
+    ]
+    
+    result = prompt(PROMPT)
+    
+    text = open("requirements.txt","r").read()
+    #print(text)
+    template = Template(text)
+    render = template
+    print(render.render(additional_files=result["additional_files"]))
 
 def download_file(template: str):
     template = template.replace('-','_')
@@ -188,4 +232,35 @@ def donwload(template: str,path: str,output: str = ".",copy: bool=False,download
         return
 
 def create_project(template: str,output: str):
-    pass
+    template = template.replace("-", "_")
+    try:
+        try:
+            url[template]
+            copytree(f"{path}/{template}/",output,ignore=ignore_patterns(".git"), dirs_exist_ok=True)
+        except KeyError:
+            error_msg(template)
+            quit()
+            return
+        except FileNotFoundError:
+            echo("flask template not found,clone new one from remote...")
+        
+            # download/clone template
+            donwload(template, path,output,copy=True)            
+    except DistutilsError:
+        echo("flask template not found,clone new one from remote...")
+        
+        # download/clone template
+        donwload(template, path,output,copy=True)
+    else:
+        echo("flask template exist,copying...")
+        echo(f"successfully copying {template} project template ")
+        echo(f"run 'cd {output}' to change to project directory")
+        echo("\n")
+        echo("run 'pip install -r requirements.txt' to install dependencies")
+        echo("\n")
+        echo("run `python app.py` to start the flask development server")
+        echo("\n")
+        echo("app will start at http://localhost:5000 (or try http://localhost:5000/api/v1/ if the first one is 404 not found)")
+        echo("\n")
+        echo("make sure to README.md first to know more about the template")
+
