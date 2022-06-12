@@ -56,37 +56,7 @@ def create_flask_app():
 def new(output: str,template: str):
     """generate new flask project template"""
     
-    template = template.replace("-", "_")
-    try:
-        try:
-            url[template]
-            copytree(f"{path}/{template}/",output,ignore=ignore_patterns(".git"), dirs_exist_ok=True)
-        except KeyError:
-            error_msg(template)
-            quit()
-            return
-        except FileNotFoundError:
-            echo("flask template not found,clone new one from remote...")
-        
-            # download/clone template
-            donwload(template, path,output,copy=True)            
-    except DistutilsError:
-        echo("flask template not found,clone new one from remote...")
-        
-        # download/clone template
-        donwload(template, path,output,copy=True)
-    else:
-        echo("flask template exist,copying...")
-        echo(f"successfully copying {template} project template ")
-        echo(f"run 'cd {output}' to change to project directory")
-        echo("\n")
-        echo("run 'pip install -r requirements.txt' to install dependencies")
-        echo("\n")
-        echo("run `python app.py` to start the flask development server")
-        echo("\n")
-        echo("app will start at http://localhost:5000 (or try http://localhost:5000/api/v1/ if the first one is 404 not found)")
-        echo("\n")
-        echo("make sure to README.md first to know more about the template")
+    create_project(template, output)
 
 @create_flask_app.command()
 def create():
@@ -96,9 +66,7 @@ def create():
     
     # for now there are no real function for this command
     result = prompt(PROMPT,vi_mode=True)
-    print(result["name"])
-    print(result["template"])
-    print(result["confirmation"])
+    if not result["confirmation"]:
 
 @create_flask_app.command()
 @option("--local","-l",is_flag=True,default=False,show_default=False)
