@@ -1,6 +1,8 @@
 from requests.exceptions import ConnectionError
 from click import group,version_option,option,argument,echo
+from jinja2 import Template
 from InquirerPy import prompt
+from InquirerPy.separator import Separator
 
 import click_completion
 import requests
@@ -23,16 +25,39 @@ PROMPT = [
     },
     {
         "type": "list",
-        "message": "select template",
+        "message": "select template: ",
         "choices": [name.replace("_","-") for name in url.keys()],
         "name": "template"
+    },
+    {
+      "type"  : "list",
+      "message": "choose database: ",
+      "choices": [
+          "none",
+          "sqlite3",
+          "mysql",
+          "postgresql"
+      ]
+    },
+    {
+        "type": "checkbox",
+        "message": "Select Additional plugin:",
+        "choices": [
+            Separator(),
+            "flask-wtf",
+            "flask-marshmallow",
+            "flask-debugtoolbar",
+            "flask-cors",
+            "flask-cache",
+        ],
+        "name": "additional_plugin"
     },
     {
         "type": "confirm",
         "message": "Are you sure to use this configuration?",
         "default": False,
         "name": "confirmation"
-    }
+    },        
 ]
 
 path = os.path.join(Path.home(),".create-flask-app/")
@@ -72,7 +97,7 @@ def create():
         echo("project creation canceled")
         quit()
     
-    create_project(template, output=name)
+    create_project(template, output=name,plugins=result["additional_plugin"])
 
 @create_flask_app.command()
 @option("--local","-l",is_flag=True,default=False,show_default=False)
@@ -179,6 +204,19 @@ def error_msg(template: str):
      echo(f"template with name '{template}' not found")
      quit()
 
+
+def parse_and_overide(dir: str,plugins: list):
+    plugin = open("cfa/additionalFiles/requirements.txt","r").read()
+    #print(text)
+    template = Template(plugin)
+    render = template
+    
+    plugins = render.render(additional_plugin=plugins)
+    new_requirements = open(os.path.join(os.getcwd(),f"{dir}/requirements.txt"),"w")
+    print(os.path.join(os.getcwd(),f"./{dir}/requirements.txt"))
+    new_requirements.write(plugins)
+    
+
 def donwload(template: str,path: str,output: str = ".",copy: bool=False,download: bool=False,is_update: bool=False):
     """
     this function is different from :func:`download_file`, 
@@ -216,7 +254,7 @@ def donwload(template: str,path: str,output: str = ".",copy: bool=False,download
         echo(f"downloading template success,you can use this template by running `create-flask-app new -t {template} ` ")
         
         if copy:
-            copytree(f"{path}/{template}/",output,ignore=ignore_patterns(".git"), dirs_exist_ok=True)
+            copytree(f"{path}/{template}/",output,ignore=ignore_patterns(".git"), dirs_exist_ok=True)            
     except KeyError:
         error_msg(template)
         return    
@@ -231,12 +269,13 @@ def donwload(template: str,path: str,output: str = ".",copy: bool=False,download
         echo(f"template already exist,you can run `create-flask-app new -t {template} -o .` to start using it ")
         return
 
-def create_project(template: str,output: str):
+def create_project(template: str,output: str,plugins: list):
     template = template.replace("-", "_")
     try:
         try:
             url[template]
             copytree(f"{path}/{template}/",output,ignore=ignore_patterns(".git"), dirs_exist_ok=True)
+            parse_and_overide(output,plugins)
         except KeyError:
             error_msg(template)
             quit()
@@ -246,6 +285,7 @@ def create_project(template: str,output: str):
         
             # download/clone template
             donwload(template, path,output,copy=True)            
+            parse_and_overide(output,plugins)
     except DistutilsError:
         echo("flask template not found,clone new one from remote...")
         
