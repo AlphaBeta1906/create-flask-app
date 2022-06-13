@@ -1,0 +1,4 @@
+flask
+{% for plugin in additional_plugin -%}
+    {{plugin + "\n"}}
+{%- endfor %}
