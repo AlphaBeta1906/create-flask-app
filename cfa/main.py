@@ -37,7 +37,7 @@ PROMPT = [
           "sqlite3",
           "mysql",
           "postgresql"
-      ]
+      ],
     },
     {
         "type": "checkbox",
