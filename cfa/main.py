@@ -166,12 +166,7 @@ def error_msg(template: str):
      quit()
 
 
-def parse_and_overide(dir: str,plugins: list):
-    plugin = open("cfa/additionalFiles/requirements.txt","r").read()
-    #print(text)
-    template = Template(plugin)
-    render = template
-    
+    for file in os.listdir("cfa/additionalFiles/"):
     plugins = render.render(additional_plugin=plugins)
     new_requirements = open(os.path.join(os.getcwd(),f"{dir}/requirements.txt"),"w")
     print(os.path.join(os.getcwd(),f"./{dir}/requirements.txt"))
