@@ -38,6 +38,7 @@ PROMPT = [
           "mysql",
           "postgresql"
       ],
+      "name": "database"
     },
     {
         "type": "checkbox",
@@ -97,7 +98,7 @@ def create():
         echo("project creation canceled")
         quit()
     
-    create_project(template, output=name,plugins=result["additional_plugin"])
+    create_project(template, output=name,plugins=result["additional_plugin"],database=result["database"])
 
 @create_flask_app.command()
 @option("--local","-l",is_flag=True,default=False,show_default=False)
@@ -166,12 +167,27 @@ def error_msg(template: str):
      quit()
 
 
+def parse_and_overide(dir: str,plugins: list,database: str):
     for file in os.listdir("cfa/additionalFiles/"):
-    plugins = render.render(additional_plugin=plugins)
-    new_requirements = open(os.path.join(os.getcwd(),f"{dir}/requirements.txt"),"w")
-    print(os.path.join(os.getcwd(),f"./{dir}/requirements.txt"))
-    new_requirements.write(plugins)
-    
+        _file = f"cfa/additionalFiles/{file}"
+        print(_file)
+        if not os.path.isdir(_file):
+            plugin = open(_file,"r").read()
+            #print(text)
+            template = Template(plugin)
+            render = template
+            
+            rendered = render.render(additional_plugin=plugins,database=database)
+            print(plugins)
+            
+            new_requirements = None
+            
+            if os.path.splitext(file)[0] in ("config","__init__"):
+                new_requirements = open(os.path.join(os.getcwd(),f"{dir}/app/{file}"),"w")
+            else:
+                new_requirements = open(os.path.join(os.getcwd(),f"{dir}/{file}"),"w")
+            new_requirements.write(rendered)
+        
 
 def donwload(template: str,path: str,output: str = ".",copy: bool=False,download: bool=False,is_update: bool=False):
     """
@@ -225,23 +241,20 @@ def donwload(template: str,path: str,output: str = ".",copy: bool=False,download
         echo(f"template already exist,you can run `create-flask-app new -t {template} -o .` to start using it ")
         return
 
-def create_project(template: str,output: str,plugins: list):
+def create_project(template: str,output: str,plugins: list,database: str):
     template = template.replace("-", "_")
     try:
         try:
             url[template]
             copytree(f"{path}/{template}/",output,ignore=ignore_patterns(".git"), dirs_exist_ok=True)
-            parse_and_overide(output,plugins)
         except KeyError:
             error_msg(template)
             quit()
-            return
         except FileNotFoundError:
             echo("flask template not found,clone new one from remote...")
         
             # download/clone template
             donwload(template, path,output,copy=True)            
-            parse_and_overide(output,plugins)
     except DistutilsError:
         echo("flask template not found,clone new one from remote...")
         
@@ -259,4 +272,4 @@ def create_project(template: str,output: str,plugins: list):
         echo("app will start at http://localhost:5000 (or try http://localhost:5000/api/v1/ if the first one is 404 not found)")
         echo("\n")
         echo("make sure to README.md first to know more about the template")
-
+        parse_and_overide(output,plugins,database)
