@@ -149,45 +149,6 @@ def remove(template: str):
     os.system(f"rm -rf {path}{template}")
     echo(f"succesffully deleting template `{template}`")
 
-@create_flask_app.command()
-def test():
-    from jinja2 import Template
-    """
-    just testing the inquirer checkbox
-    """
-    PROMPT = [
-        {
-            "message": "Select Additional files:",
-            "type": "checkbox",
-            "choices": [
-                "Pepperoni",
-                "Mushrooms",
-                "Sausage",
-                "Onions",
-                "Bacon",
-                "Extra Cheese",
-                "Peppers",
-                "Black Olives",
-                "Chicken",
-                "Pineapple",
-                "Spinach",
-                "Fresh Basil",
-                "Ham",
-                "Pesto",
-                "Beef",
-            ],
-            "name": "additional_files"
-        },
-    ]
-    
-    result = prompt(PROMPT)
-    
-    text = open("requirements.txt","r").read()
-    #print(text)
-    template = Template(text)
-    render = template
-    print(render.render(additional_files=result["additional_files"]))
-
 def download_file(template: str):
     template = template.replace('-','_')
     echo(f"downloading template '{template}' from {url[template][0]} ")
