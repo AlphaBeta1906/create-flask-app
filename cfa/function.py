@@ -51,7 +51,6 @@ class Create_Project:
                 copytree(f"{path}/{template}/",output,ignore=ignore_patterns(".git"), dirs_exist_ok=True)
             except KeyError:
                 self.error_msg(template)
-                quit()
             except FileNotFoundError:
                 echo("flask template not found,clone new one from remote...")
             
@@ -127,20 +126,29 @@ class Create_Project:
         except OSError:
             echo(f"template already exist,you can run `create-flask-app new -t {template} -o .` to start using it ")
             return        
+    
+    def conditional_copy(self,filename: str,filepath: str):
+        _file = f"cfa/additionalFiles/{filename}"
+        content = open(_file,"r").read()
+        
+        new_content = open(os.path.join(os.getcwd(),filepath),"w")
+        new_content.write(content)
         
     def parse_and_overide(self):
         dir = self.output_dir
         plugins = self.plugins
         database = self.database
         
+        if database == "sqlite3":
+            self.conditional_copy(filename="dbase.db", filepath=f"{dir}/dbase.db")
+        
         for file in os.listdir("cfa/additionalFiles/"):
             _file = f"cfa/additionalFiles/{file}"
-            print(_file)
             if not os.path.isdir(_file):
                 template = open(_file,"r").read()
                 #print(text)
                 template = Template(template)
-                render = template
+                render: Template = template
 
                 rendered = render.render(additional_plugin=plugins,database=database)
 
@@ -148,8 +156,11 @@ class Create_Project:
             
                 if os.path.splitext(file)[0] in ("config","__init__"):
                     new_requirements = open(os.path.join(os.getcwd(),f"{dir}/app/{file}"),"w")
-                else:
+                    new_requirements.write(rendered)
+                elif os.path.splitext(file)[0] == "requirements":
                     new_requirements = open(os.path.join(os.getcwd(),f"{dir}/{file}"),"w")
-                new_requirements.write(rendered)
+                    new_requirements.write(rendered)
+                else:
+                    pass
         
         
