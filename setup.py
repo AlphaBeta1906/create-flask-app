@@ -1,7 +1,7 @@
 from setuptools import setup,find_packages
 
 setup(
-    name="create-flask-app",
+    name="flask-create-project",
     version="0.0.1",
     description="a simple cli tools to generate template for flask app",
     license="MIT",
