@@ -58,7 +58,7 @@ def create():
                 output_dir=name
             )
     
-    #project.create_project()
+    project.create_project()
 
 @create_flask_app.command()
 @option("--local","-l",is_flag=True,default=False,show_default=False)
