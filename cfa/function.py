@@ -1,3 +1,4 @@
+import imp
 from requests.exceptions import ConnectionError
 from click import echo
 from jinja2 import Template
@@ -133,7 +134,17 @@ class Create_Project:
         
         new_content = open(os.path.join(os.getcwd(),filepath),"w")
         new_content.write(content)
+    
+    def generate_random_string(self,n: int):
+        import random
+        import string
         
+        letters = string.ascii_letters + string.digits
+        _string = "".join(random.choice(letters) for i in range(n))
+        
+        return _string
+        
+    
     def parse_and_overide(self):
         dir = self.output_dir
         plugins = self.plugins
@@ -150,7 +161,7 @@ class Create_Project:
                 template = Template(template)
                 render: Template = template
 
-                rendered = render.render(additional_plugin=plugins,database=database)
+                rendered = render.render(additional_plugin=plugins,database=database,generate_key=self.generate_random_string)
 
                 new_requirements = None
             

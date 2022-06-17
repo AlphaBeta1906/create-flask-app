@@ -1,4 +1,5 @@
 flask
-{% for plugin in additional_plugin -%}
-    {{plugin + "\n"}}
-{%- endfor %}
+{% for plugin in additional_plugin -%}{{plugin + "\n"}}{%- endfor %}
+{% if database != "none" and "flask-marshmallow" in additional_plugin %}marshmallow-sqlalchemy{% endif %}
+{% if database == "mysql" %}pymysql{% endif %}
+{% if database == "postgresql" %}psycopg2{% endif %}
