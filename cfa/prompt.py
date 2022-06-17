@@ -43,11 +43,14 @@ PROMPT = [
         "message": "Select Additional plugin(use space to select/unselect):",
         "choices": [
             Separator(),
+            "flask-sqlalchemy",
             "flask-wtf",
             "flask-marshmallow",
             "flask-debugtoolbar",
             "flask-cors",
             "flask-cache",
+            "flask-compress",
+            
         ],
         "name": "additional_plugin"
     },
