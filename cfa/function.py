@@ -1,4 +1,4 @@
-import imp
+from re import template
 from requests.exceptions import ConnectionError
 from click import echo
 from jinja2 import Template
@@ -75,7 +75,7 @@ class Create_Project:
             echo("app will start at http://localhost:5000 (or try http://localhost:5000/api/v1/ if the first one is 404 not found)")
             echo("\n")
             echo("make sure to README.md first to know more about the template")
-            self.parse_and_overide()
+            self.add_additional_files()
         
     def copy_file(self,path: str,copy: bool=False,is_update: bool=False):
         cache_path = self.cache_path
@@ -117,11 +117,9 @@ class Create_Project:
                 copytree(f"{path}/{template}/",output,ignore=ignore_patterns(".git"), dirs_exist_ok=True)            
         except KeyError:
             self.error_msg()
-            return    
         except ConnectionError:
             echo("connection error")
             quit()
-            return
         except FileExistsError:
             echo(f"template already exist,you can run `create-flask-app new -t {template} -o .` to start using it ")
             return

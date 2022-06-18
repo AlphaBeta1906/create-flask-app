@@ -55,7 +55,8 @@ def create():
                 plugins=result["additional_plugin"],
                 database=result["database"],
                 template=template,
-                output_dir=name
+                output_dir=name,
+                css=result["css"]
             )
     
     project.create_project()
