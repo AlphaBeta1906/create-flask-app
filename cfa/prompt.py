@@ -1,12 +1,9 @@
-from InquirerPy.separator import Separator
-from InquirerPy.inquirer import select
-
 from .url import URL as url
 
 PROMPT = [
     {
         "type": "input",
-        "message": "What's your project name(empty or '.' means current dir)?",
+        "message": "What's your project name(empty or '.' means current dir): ",
         "name": "name",
         "default": "."
     },
@@ -42,7 +39,6 @@ PROMPT = [
         "type": "checkbox",
         "message": "Select Additional plugin(use space to select/unselect):",
         "choices": [
-            Separator(),
             "flask-sqlalchemy",
             "flask-wtf",
             "flask-marshmallow",
@@ -55,8 +51,29 @@ PROMPT = [
         "name": "additional_plugin"
     },
     {
+        "type": "list",
+        "message": "Select css framework(cdn): ",
+        "choices": [
+            "none",
+            "bootstrap-5",
+            "bulma",
+            "material.css",
+            "water.css",
+            "pico.css",
+        ],
+        "name": "css"
+    },
+    {
+        "type": "checkbox",
+        "message": "choose additional file(s): ",
+        "choices":[
+            "Heroku procfile",
+            "Dokcefile(empty)"
+        ]
+    },
+    {
         "type": "confirm",
-        "message": "Are you sure to use this configuration?",
+        "message": "Are you sure to use these configuration?",
         "default": False,
         "name": "confirmation"
     },        
