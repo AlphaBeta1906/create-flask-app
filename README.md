@@ -13,6 +13,12 @@ pip install flask-create-project
 ```bash
 flask-create-app new -o myProject
 ```
+
+or with prompt 
+
+```bash
+flask-create-app create
+```
 ## todo
 - [ ] Add more templates
 - [x] Use requests instead of gitPython
