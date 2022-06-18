@@ -129,14 +129,32 @@ class Create_Project:
             echo(f"template already exist,you can run `create-flask-app new -t {template} -o .` to start using it ")
             return        
     
-    def conditional_copy(self,filename: str,filepath: str):
+    def render_and_copy(self,filename: str,filepath: str):
+        """
+        `:param:filename` : name of the file that will be copied
+        `:param:filepath` : destination of copy
+        """
+        
         _file = f"cfa/additionalFiles/{filename}"
         content = open(_file,"r").read()
+        
+        template = Template(content)
+        render: Template = template
+        content =  render.render(
+                    additional_plugin=self.plugins,
+                    database=self.database,
+                    generate_key=self.generate_random_string,
+                    css=self.css
+                    )
         
         new_content = open(os.path.join(os.getcwd(),filepath),"w")
         new_content.write(content)
     
     def generate_random_string(self,n: int):
+        """
+        generate random string that will be used in config.py file
+        `:param:n` : length of char
+        """
         import random
         import string
         
@@ -146,32 +164,29 @@ class Create_Project:
         return _string
         
     
-    def parse_and_overide(self):
+    def add_additional_files(self):
         dir = self.output_dir
-        plugins = self.plugins
         database = self.database
         
         if database == "sqlite3":
-            self.conditional_copy(filename="dbase.db", filepath=f"{dir}/dbase.db")
+            self.render_and_copy(filename="dbase.db", filepath=f"{dir}/dbase.db")
         
         for file in os.listdir("cfa/additionalFiles/"):
             _file = f"cfa/additionalFiles/{file}"
             if not os.path.isdir(_file):
-                template = open(_file,"r").read()
-                #print(text)
-                template = Template(template)
-                render: Template = template
 
-                rendered = render.render(additional_plugin=plugins,database=database,generate_key=self.generate_random_string)
-
-                new_requirements = None
-            
-                if os.path.splitext(file)[0] in ("config","__init__"):
-                    new_requirements = open(os.path.join(os.getcwd(),f"{dir}/app/{file}"),"w")
-                    new_requirements.write(rendered)
-                elif os.path.splitext(file)[0] == "requirements":
-                    new_requirements = open(os.path.join(os.getcwd(),f"{dir}/{file}"),"w")
-                    new_requirements.write(rendered)
+                filename = os.path.splitext(file)[0]
+                if filename in ("config","__init__"):
+                    self.render_and_copy(filename=file,filepath=f"{dir}/{file}")
+                elif filename == "requirements":
+                    self.render_and_copy(filename=file,filepath=f"{dir}/{file}")
+                elif filename == "index":
+                    template_path = f"{dir}/app/templates/"
+                    static_path = f"{dir}/app/static/"
+                    os.mkdir(template_path)
+                    os.makedirs(f"{static_path}css")
+                    os.makedirs(f"{static_path}js",exist_ok=True)
+                    self.render_and_copy(filename=file,filepath=f"{template_path}/index.html")
                 else:
                     pass
         
