@@ -18,12 +18,13 @@ class Create_Project:
     path = os.path.join(Path.home(),".create-flask-app/")
     cache_path = os.path.join(Path.home(),".create-flask-app-cache/")
     
-    def __init__(self,name: str,plugins: list,database: str,template: str,output_dir: str):
+    def __init__(self,name: str,plugins: list,database: str,template: str,output_dir: str, css: str):
         self.name = name
         self.plugins = plugins
         self.database = database
         self.template = template
         self.output_dir = output_dir
+        self.css = css
     
     def error_msg(self):
         """
