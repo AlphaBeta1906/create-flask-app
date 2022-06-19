@@ -144,7 +144,6 @@ class Create_Project:
                     generate_key=self.generate_random_string,
                     css=self.css
                     )
-        
         new_content = open(os.path.join(os.getcwd(),filepath),"w")
         new_content.write(content)
     
@@ -175,9 +174,15 @@ class Create_Project:
 
                 filename = os.path.splitext(file)[0]
                 if filename in ("config","__init__"):
-                    self.render_and_copy(filename=file,filepath=f"{dir}/{file}")
+                    self.render_and_copy(filename=file,filepath=f"{dir}/app/{file}")
                 elif filename == "requirements":
                     self.render_and_copy(filename=file,filepath=f"{dir}/{file}")
+                elif filename == "example":
+                    print("example")
+                    destination = f"{dir}/app/controller/"
+                    self.render_and_copy(filename=file,filepath=f"{destination}{file}")
+                elif filename == "model":
+                    os.makedirs(f"{dir}/model/")
                 elif filename == "index":
                     template_path = f"{dir}/app/templates/"
                     static_path = f"{dir}/app/static/"
