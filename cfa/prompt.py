@@ -57,7 +57,7 @@ PROMPT = [
             "none",
             "bootstrap-5",
             "bulma",
-            "material.css",
+            "materialize",
             "water.css",
             "pico.css",
         ],
@@ -68,8 +68,10 @@ PROMPT = [
         "message": "choose additional file(s): ",
         "choices":[
             "Heroku procfile",
-            "Dokcefile(empty)"
-        ]
+            "Dokcerfile(empty)",
+            "Tests"
+        ],
+        "name": "add"
     },
     {
         "type": "confirm",

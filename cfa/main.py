@@ -56,7 +56,8 @@ def create():
                 database=result["database"],
                 template=template,
                 output_dir=name,
-                css=result["css"]
+                css=result["css"],
+                additional=result["add"]
             )
     
     project.create_project()
