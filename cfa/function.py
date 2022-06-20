@@ -18,13 +18,14 @@ class Create_Project:
     path = os.path.join(Path.home(),".create-flask-app/")
     cache_path = os.path.join(Path.home(),".create-flask-app-cache/")
     
-    def __init__(self,name: str,plugins: list,database: str,template: str,output_dir: str, css: str):
+    def __init__(self,name: str,plugins: list,database: str,template: str,output_dir: str, css: str,additional: str):
         self.name = name
         self.plugins = plugins
         self.database = database
         self.template = template
         self.output_dir = output_dir
         self.css = css
+        self.additional = additional
     
     def error_msg(self):
         """
@@ -168,6 +169,21 @@ class Create_Project:
         if database == "sqlite3":
             self.render_and_copy(filename="dbase.db", filepath=f"{dir}/dbase.db")
         
+        if database != "none":
+            os.makedirs(f"{dir}/app/model/",exist_ok=True)
+            self.render_and_copy(filename="model.py",filepath=f"{dir}/app/model/model.py")
+          
+        if "Heroku procfile" in self.additional:
+            self.render_and_copy(filename="Procfile",filepath=f"{dir}/Procfile")
+            
+        if "Dokcerfile(empty)" in self.additional:
+            self.render_and_copy(filename="dockerfile",filepath=f"{dir}/dockerfile")
+        
+        if "Tests" in self.additional:
+            os.mkdir(f"{dir}/test")
+            test_file = open(f"{dir}/test/__init__.py","w")
+            test_file.write("")
+        
         for file in os.listdir("cfa/additionalFiles/"):
             _file = f"cfa/additionalFiles/{file}"
             if not os.path.isdir(_file):
@@ -178,11 +194,8 @@ class Create_Project:
                 elif filename == "requirements":
                     self.render_and_copy(filename=file,filepath=f"{dir}/{file}")
                 elif filename == "example":
-                    print("example")
                     destination = f"{dir}/app/controller/"
                     self.render_and_copy(filename=file,filepath=f"{destination}{file}")
-                elif filename == "model":
-                    os.makedirs(f"{dir}/model/")
                 elif filename == "index":
                     template_path = f"{dir}/app/templates/"
                     static_path = f"{dir}/app/static/"
