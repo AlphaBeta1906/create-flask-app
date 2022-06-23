@@ -23,8 +23,5 @@ flask-create-app create
 - [ ] Add more templates
 - [x] Use requests instead of gitPython
 - [ ] Create better app
-- [ ] Use somthing other than file to list templates
-- [ ] Make more bit like package manager but for project templates
-- [ ] A website for templates?
 
 *Note: this project still under development*
