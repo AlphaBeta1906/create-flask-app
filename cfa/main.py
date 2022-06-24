@@ -41,7 +41,6 @@ def create():
     more interactive version of 'new' command
     """
     
-    # for now there are no real function for this command
     result = prompt(PROMPT,vi_mode=True)
     name = result["name"]
     template = result["template"]
