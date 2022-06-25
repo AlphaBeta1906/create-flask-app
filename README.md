@@ -11,7 +11,7 @@ pip install flask-create-project
 
 ## simple usage
 ```bash
-flask-create-app new -o myProject
+flask-create-app new -t min-api -o myProject
 ```
 
 or with prompt 
