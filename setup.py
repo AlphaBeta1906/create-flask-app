@@ -30,6 +30,6 @@ setup(
         "Programming Language :: Python :: 3 :: Only",
     ],
     install_requires=["Click","requests"],
-    keywords="automation,tools ,cli,project,template,flask,development,web,api",    
+    keywords="automation,tools ,cli,project,template,flask,development,web,api,boilerplate",    
     python_requires=">=3.7",
 )
