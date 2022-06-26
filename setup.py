@@ -29,7 +29,7 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3 :: Only",
     ],
-    install_requires=["Click","requests"],
+    install_requires=["Click","requests","InquirerPy","jinja2","click-autocomplete"],
     keywords="automation,tools ,cli,project,template,flask,development,web,api,boilerplate",    
     python_requires=">=3.7",
 )
