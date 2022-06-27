@@ -61,10 +61,11 @@ def create():
     
     project.create_project()
 
+"""
 #@create_flask_app.command()
 #@option("--local","-l",is_flag=True,default=False,show_default=False)
 def list(local: bool):
-    """display available templates"""
+  
     
     if local:
         echo("display local template")
@@ -86,14 +87,14 @@ def list(local: bool):
 #@create_flask_app.command()
 #@argument("template")
 def get(template: str):    
-    """download new project template"""
+    
     project = Create_Project(template=template,output_dir=path)
     project.download_file()
 
 #@create_flask_app.command()
 #@option("-t","--template",help="template name",metavar="<template>",default="min_api")
 def update(template: str):
-    """update exisiting template"""
+    
     project = Create_Project(template=template,output_dir=path)
     
     template = template.replace('-','_')
@@ -105,10 +106,11 @@ def update(template: str):
 #@create_flask_app.command()
 #@argument("template",metavar="<template>")
 def remove(template: str):
-    """remove selected template"""
+    
     template = template.replace('-','_')
     template_path = f"{path}{template}"
     if not os.path.exists(template_path):
          echo(f"template '{template}' not found")
     os.system(f"rm -rf {path}{template}")
     echo(f"succesffully deleting template `{template}`")
+"""
