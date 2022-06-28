@@ -56,7 +56,8 @@ def create():
                 template=template,
                 output_dir=name,
                 css=result["css"],
-                additional=result["add"]
+                additional=result["add"],
+                auth=result["auth"]
             )
     
     project.create_project()

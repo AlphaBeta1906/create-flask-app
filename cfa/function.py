@@ -18,7 +18,7 @@ class Create_Project:
     path = os.path.join(Path.home(),".create-flask-app/")
     cache_path = os.path.join(Path.home(),".create-flask-app-cache/")
     
-    def __init__(self,name: str,plugins: list,database: str,template: str,output_dir: str, css: str,additional: str):
+    def __init__(self,name: str,plugins: list,database: str,template: str,output_dir: str, css: str,additional: str,auth: str):
         self.name = name
         self.plugins = plugins
         self.database = database
@@ -26,6 +26,7 @@ class Create_Project:
         self.output_dir = output_dir
         self.css = css
         self.additional = additional
+        self.auth = auth
     
     def error_msg(self):
         """
@@ -143,7 +144,8 @@ class Create_Project:
                     additional_plugin=self.plugins,
                     database=self.database,
                     generate_key=self.generate_random_string,
-                    css=self.css
+                    css=self.css,
+                    auth=self.auth
                     )
         new_content = open(os.path.join(os.getcwd(),filepath),"w")
         new_content.write(content)
