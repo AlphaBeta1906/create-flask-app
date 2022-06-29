@@ -43,7 +43,6 @@ def create():
     
     result = prompt(PROMPT,vi_mode=True)
     name = result["name"]
-    template = result["template"]
     
     if not result["confirmation"]:
         echo("project creation canceled")
@@ -53,7 +52,6 @@ def create():
                 name,
                 plugins=result["additional_plugin"],
                 database=result["database"],
-                template=template,
                 output_dir=name,
                 css=result["css"],
                 additional=result["add"],
