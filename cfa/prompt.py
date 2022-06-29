@@ -8,12 +8,6 @@ PROMPT = [
         "default": "."
     },
     {
-        "type": "list",
-        "message": "select template: ",
-        "choices": [name.replace("_","-") for name in url.keys()],
-        "name": "template"
-    },
-    {
       "type": "list",
       "message": "choose database: ",
       "choices": [
