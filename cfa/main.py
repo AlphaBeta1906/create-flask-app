@@ -28,11 +28,10 @@ def create_flask_app():
 
 @create_flask_app.command()
 @option("-o","--output",default=".",help="output dir",metavar="<dir>")
-@option("-t","--template",help="template name",default="min_api",metavar="<template_name>")
-def new(output: str,template: str):
-    """generate new flask project template"""
+def new(output: str):
+    """generate minimal flask project template"""
     
-    project = Create_Project(name=output,template=template,database="sqlite",plugins=[],output_dir=output)
+    project = Create_Project(name=output,database="sqlite",plugins=[],css="bootstrap-5",auth="none",output_dir=output,additional=[])
     project.create_project()
 
 @create_flask_app.command()
