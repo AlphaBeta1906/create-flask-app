@@ -16,3 +16,14 @@ from flask import Flask
 {% if "flask-debugtoolbar" in additional_plugin %}toolbar = DebugToolbarExtension() {% endif %}
 {% if "flask-cache" in  additional_plugin %}cache = Cache(app) {% endif %}
 {% if "flask-compress" in additional_plugin %}compress = Compress() {% endif %}
+
+def create_app():
+    app = Flask(__name__)
+    {% if "flask-sqlalchemy" in additional_plugin %}db.init_app(app){% endif %}
+    {% if "flask-wtf" in additional_plugin %}csrf.init_app(app){% endif %}
+    {% if "flask-cors" in additional_plugin %}cors.init_app(app){% endif %}
+    {% if "flask-marshmallow" in additional_plugin %}marshmallow.init_app(app){% endif %}
+    {% if "flask-debugtoolbar" in additional_plugin %}toolbar.init_app(app){% endif %}
+    {% if "flask-cache" in  additional_plugin %}cache.init_app(app){% endif %}
+    {% if "flask-compress" in additional_plugin %}compress.init_app(app){% endif %}
+    return app
