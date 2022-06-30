@@ -19,9 +19,5 @@ or with prompt
 ```bash
 flask-create-app create
 ```
-## todo
-- [ ] Add more templates
-- [x] Use requests instead of gitPython
-- [ ] Create better app
 
 *Note: this project still under development*
