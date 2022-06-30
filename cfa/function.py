@@ -11,7 +11,7 @@ class Create_Project:
     path = os.path.join(Path.home(),".create-flask-app/")
     cache_path = os.path.join(Path.home(),".create-flask-app-cache/")
     
-    def __init__(self,name: str,plugins: list,database: str,output_dir: str, css: str,additional: str,auth: str):
+    def __init__(self,name: str,plugins: list,database: str,output_dir: str, css: str,additional: list,auth: str):
         self.name = name
         self.plugins = plugins
         self.database = database
