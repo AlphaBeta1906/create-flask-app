@@ -4,10 +4,6 @@ from cfa.main import create_flask_app
 
 # just initial testing
 
-def test_url_list():
-    """test url_list data type is a dict"""
-    assert type(url) == dict
-
 def test_template_list_command():
     """test list command"""
     runner = CliRunner()
