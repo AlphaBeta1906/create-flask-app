@@ -106,7 +106,8 @@ class Create_Project:
             os.mkdir(f"{dir}/test")
             test_file = open(f"{dir}/test/__init__.py","w")
             test_file.write("")
-                
+
+        os.mkdir(f"{dir}/app")                
         for file in os.listdir("cfa/additionalFiles/"):
             _file = f"cfa/additionalFiles/{file}"
             if not os.path.isdir(_file):
