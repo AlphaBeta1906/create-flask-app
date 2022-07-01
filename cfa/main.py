@@ -1,9 +1,8 @@
-from click import group,version_option,option,argument,echo
+from click import group,version_option,option,echo
 from InquirerPy import prompt
 
 import click_completion
 
-from shutil import rmtree
 from pathlib import Path
 
 import os
@@ -31,7 +30,11 @@ def create_flask_app():
 def new(output: str):
     """generate minimal flask project template"""
     
-    project = Create_Project(name=output,database="sqlite",plugins=[],css="bootstrap-5",auth="none",output_dir=output,additional=[])
+    project = Create_Project(
+        name=output,
+        database="sqlite",
+        plugins=[],
+        css="bootstrap-5",auth="none",output_dir=output,additional=[])
     project.create_project()
 
 @create_flask_app.command()
@@ -46,7 +49,7 @@ def create():
     if not result["confirmation"]:
         echo("project creation canceled")
         quit()
-    
+
     project = Create_Project(
                 name,
                 plugins=result["additional_plugin"],
@@ -55,60 +58,5 @@ def create():
                 css=result["css"],
                 additional=result["add"],
                 auth=result["auth"]
-            )
-    
+            )    
     project.create_project()
-
-"""
-#@create_flask_app.command()
-#@option("--local","-l",is_flag=True,default=False,show_default=False)
-def list(local: bool):
-  
-    
-    if local:
-        echo("display local template")
-        try:
-            dirs = []
-            for dir,sub_dirs,file in os.walk(f"{path}"):
-                dirs.append(sub_dirs)
-            for templates in dirs[0]:
-                echo(templates)
-        except FileNotFoundError:
-            echo("templates folder not founds")
-        return
-    echo("available templates: \n")
-    for k,v in url.items():
-        echo(f"» {k} : {v[1]}")
-        echo("\n")
-
-
-#@create_flask_app.command()
-#@argument("template")
-def get(template: str):    
-    
-    project = Create_Project(template=template,output_dir=path)
-    project.download_file()
-
-#@create_flask_app.command()
-#@option("-t","--template",help="template name",metavar="<template>",default="min_api")
-def update(template: str):
-    
-    project = Create_Project(template=template,output_dir=path)
-    
-    template = template.replace('-','_')
-    echo("updating template...")
-    rmtree(f"{path}/{template}/")    
-    project.download_file()
-    echo(f"succesfully updating template `{template}`")
-
-#@create_flask_app.command()
-#@argument("template",metavar="<template>")
-def remove(template: str):
-    
-    template = template.replace('-','_')
-    template_path = f"{path}{template}"
-    if not os.path.exists(template_path):
-         echo(f"template '{template}' not found")
-    os.system(f"rm -rf {path}{template}")
-    echo(f"succesffully deleting template `{template}`")
-"""
