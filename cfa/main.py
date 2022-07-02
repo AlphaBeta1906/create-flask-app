@@ -28,7 +28,9 @@ def create_flask_app():
 @create_flask_app.command()
 @option("-o","--output",default=".",help="output dir",metavar="<dir>")
 def new(output: str):
-    """generate minimal flask project template"""
+    """
+    generate minimal flask project template with no plugin
+    """
     
     project = Create_Project(
         name=output,
