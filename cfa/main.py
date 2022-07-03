@@ -7,7 +7,6 @@ from pathlib import Path
 
 import os
 
-from .url import URL as url
 from .function import Create_Project
 from .prompt import PROMPT
 
