@@ -16,11 +16,11 @@ cache_path = os.path.join(Path.home(),".create-flask-app-cache/")
 click_completion.init()
 
 @group()
-@version_option("0.0.1", help="Show version") 
+@version_option("0.1s.1", help="Show version") 
 def create_flask_app():
     """ 
     create-flask-app is a command line app to generate simple template flask project 
-    version : 0.0.1
+    version : 0.1.1
     """
     pass
 
