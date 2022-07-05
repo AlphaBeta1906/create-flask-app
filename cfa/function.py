@@ -93,7 +93,9 @@ class Create_Project:
             self.render_and_copy(filename="dbase.db", filepath=f"{dir}/dbase.db")
         
         if database != "none":
-            os.makedirs(f"{dir}/app/model/",exist_ok=True)
+            destination =f"{dir}/app/model/" 
+            os.makedirs(destination,exist_ok=True)
+            open(f"{destination}/__init__.py","a").close()
             self.render_and_copy(filename="model.py",filepath=f"{dir}/app/model/model.py")
           
         if "Heroku procfile" in self.additional:
@@ -119,6 +121,7 @@ class Create_Project:
                 elif filename == "example":
                     destination = f"{dir}/app/controller/"
                     os.mkdir(destination)
+                    open(f"{destination}/__init__.py","a").close()
                     self.render_and_copy(filename=file,filepath=f"{destination}{file}")
                 elif filename == "wsgi":
                     self.render_and_copy(filename=file,filepath=f"{dir}/{file}")
