@@ -3,15 +3,8 @@ from InquirerPy import prompt
 
 import click_completion
 
-from pathlib import Path
-
-import os
-
 from .function import Create_Project
 from .prompt import PROMPT
-
-path = os.path.join(Path.home(),".create-flask-app/")
-cache_path = os.path.join(Path.home(),".create-flask-app-cache/")
 
 click_completion.init()
 
