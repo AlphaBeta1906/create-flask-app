@@ -120,7 +120,7 @@ class Create_Project:
                     self.render_and_copy(filename=file,filepath=f"{dir}/{file}")
                 elif filename == "example":
                     destination = f"{dir}/app/controller/"
-                    os.mkdir(destination)
+                    os.makedirs(destination)
                     open(f"{destination}/__init__.py","a").close()
                     self.render_and_copy(filename=file,filepath=f"{destination}{file}")
                 elif filename == "wsgi":
