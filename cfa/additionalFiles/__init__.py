@@ -25,5 +25,18 @@ def create_app():
     {% if "flask-marshmallow" in additional_plugin %}marshmallow.init_app(app){% endif %}
     {% if "flask-debugtoolbar" in additional_plugin %}toolbar.init_app(app){% endif %}
     {% if "flask-cache" in  additional_plugin %}cache.init_app(app){% endif %}
-    {% if "flask-compress" in additional_plugin %}compress.init_app(app){% endif %}
+    {% if "flask-compress" in additional_plugin %}compress.init_app(app){% endif %}     
+    {% if database != "none"%}from .model.user import User{% endif %}
+    {% if auth == "flask-login" %}
+    # login manager
+    login_manager = LoginManager()
+    login_manager.login_view = "your login view"
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(id):
+        # since the user_id is just the primary key of our user table, use it in the query for the user
+        return User.query.get(int(id))
+    {% endif %}
+    
     return app
