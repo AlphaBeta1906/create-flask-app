@@ -6,7 +6,7 @@ current version : 0.1.1
 
 ## installation
 ```bash
-pip install flask-create-project
+pip install create-flask-project
 ```
 
 ## simple usage
