@@ -8,8 +8,7 @@ import os
 
 
 class Create_Project:
-    path = os.path.join(Path.home(),".create-flask-app/")
-    cache_path = os.path.join(Path.home(),".create-flask-app-cache/")
+    MAIN_PATH = os.path.dirname(__file__)
     
     def __init__(self,name: str,plugins: list,database: str,output_dir: str, css: str,additional: list,auth: str):
         self.name = name
@@ -56,7 +55,7 @@ class Create_Project:
         `:param:filepath` : destination of copy
         """
         
-        _file = f"cfa/additionalFiles/{filename}"
+        _file = f"{self.MAIN_PATH}/additionalFiles/{filename}"
         content = open(_file,"r").read()
         
         template = Template(content)
@@ -109,8 +108,8 @@ class Create_Project:
             test_file = open(f"{dir}/test/__init__.py","w")
             test_file.write("")
                 
-        for file in os.listdir("cfa/additionalFiles/"):
-            _file = f"cfa/additionalFiles/{file}"
+        for file in os.listdir(f"{self.MAIN_PATH}/additionalFiles/"):
+            _file = f"{self.MAIN_PATH}/additionalFiles/{file}"
             if not os.path.isdir(_file):
 
                 filename = os.path.splitext(file)[0]
