@@ -2,7 +2,7 @@ from setuptools import setup,find_packages
 
 setup(
     name="create-flask-project",
-    version="0.1.1",
+    version="0.1.2-alpha",
     description="a simple cli tools to generate template for flask app",
     long_description= open("README.md","r").read(),
     license="MIT",
@@ -19,7 +19,7 @@ setup(
         create-flask-app= cfa.main:create_flask_app
     """,
     classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
+        "Development Status :: 3 - Alpha"
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Environment :: Console",
@@ -29,7 +29,7 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3 :: Only",
     ],
-    install_requires=["Click","InquirerPy","jinja2","click-autocomplete"],
+    install_requires=["Click","InquirerPy","jinja2","click-completion"],
     keywords="automation,tools ,cli,project,template,flask,development,web,api,boilerplate",    
     python_requires=">=3.7",
 )
