@@ -7,7 +7,6 @@ setup(
     long_description= open("README.md","r").read(),
     license="MIT",
     author="fariz",
-    include_package_data=True,
     packages=find_packages(),
     include_package_data=True,
     author_email="farizi1906@gmail.com",
