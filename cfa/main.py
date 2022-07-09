@@ -9,11 +9,11 @@ from .prompt import PROMPT
 click_completion.init()
 
 @group()
-@version_option("0.1.1", help="Show version") 
+@version_option("0.2.1", help="Show version") 
 def create_flask_app():
     """ 
     create-flask-app is a command line app to generate simple template flask project 
-    version : 0.1.1
+    version : 0.2.1
     """
     pass
 
