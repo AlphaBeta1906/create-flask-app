@@ -2,11 +2,20 @@
 
 a simple cli tools to create project template for flask app and help you set up flask project more quickly
 
-current version : 0.1.1
+current version : 0.2.1
 
 ## installation
 ```bash
 pip install create-flask-project
+```
+or clone this repository(unstable)
+```
+git clone https://github.com/AlphaBeta1906/create-flask-app.git
+
+cd create-flask-app
+
+pip install . --editable   
+
 ```
 
 ## simple usage
