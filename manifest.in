@@ -1,2 +1,2 @@
 include requirements.txt
-recursive-include  *
+recursive-include cfa/additionalFiles * cfa/additionalFiles *
