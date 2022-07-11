@@ -26,6 +26,7 @@ def create_app():
     {% if "flask-debugtoolbar" in additional_plugin %}toolbar.init_app(app){% endif %}
     {% if "flask-cache" in  additional_plugin %}cache.init_app(app){% endif %}
     {% if "flask-compress" in additional_plugin %}compress.init_app(app){% endif %}     
+    
     {% if database != "none"%}from .model.user import User{% endif %}
     {% if auth == "flask-login" %}
     # login manager
@@ -37,6 +38,12 @@ def create_app():
     def load_user(id):
         # since the user_id is just the primary key of our user table, use it in the query for the user
         return User.query.get(int(id))
+    {% endif %}
+    {% if auth == "flask-jwt-extended"%}
+    @jwt.user_lookup_loader
+    def user_lookup_callback(_jwt_header, jwt_data):
+        identity = jwt_data["sub"]
+        return User.query.filter_by(id=identity).one_or_none()
     {% endif %}
     
     return app
