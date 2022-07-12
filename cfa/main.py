@@ -21,13 +21,13 @@ def create_flask_app():
 @option("-o","--output",default=".",help="output dir",metavar="<dir>")
 def new(output: str):
     """
-    generate minimal flask project template with no plugin
+    generate minimal flask project template with minimal plugin
     """
     
     project = Create_Project(
         name=output,
         database="sqlite",
-        plugins=[],
+        plugins=["flask-sqlalchemy"],
         css="bootstrap-5",auth="none",output_dir=output,additional=[])
     project.create_project()
 
