@@ -18,8 +18,7 @@ minimal template
 ```bash
 flask-create-app new -t min-api -o myProject
 ```
-
-or with prompt 
+or with prompt for more interactive
 
 ```bash
 flask-create-app create
