@@ -30,6 +30,6 @@ setup(
         "Programming Language :: Python :: 3 :: Only",
     ],
     install_requires=["Click","InquirerPy","jinja2","click-completion"],
-    keywords="automation,tools ,cli,project,template,flask,development,web,api,boilerplate",    
+    keywords="automation,tools ,cli,project,template,flask,development,web,api,rest_api,boilerplate",    
     python_requires=">=3.7",
 )
