@@ -34,7 +34,7 @@ def new(output: str):
 @create_flask_app.command()
 def create():
     """
-    more interactive version of 'new' command
+    generate new flask project with propmpt
     """
     
     result = prompt(PROMPT,vi_mode=True)
