@@ -1,4 +1,7 @@
 class Config(object):
+    """
+    Flask development configuration
+    """
     DEBUG = True
     ENV = "development"
     
@@ -8,3 +11,11 @@ class Config(object):
     {% if database == "flask-jwt-extended"%} JWT_SECRET_KEY = "{{generate_key(50)}}"{% endif%}    
     {% if database == "mysql"%}SQLALCHEMY_DATABASE_URI = "mysql+pymysql://user:pass@host/database"{% elif database == "postgresql"%}SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://user:pass@host:port/database"{% else %}SQLALCHEMY_DATABASE_URI = "sqlite://dbase.db"{% endif %}
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+class ConfigProd(Config):
+    """
+    Flask production configuration
+    """
+    DEBUG = False
+    ENV = "production"
+    
+    # other production config
