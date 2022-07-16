@@ -1,11 +1,9 @@
 from click import echo
 from jinja2 import Template
 
-from pathlib import Path
 from distutils.errors import DistutilsError
 
 import os
-
 
 class Create_Project:
     MAIN_PATH = os.path.dirname(__file__)
