@@ -1,4 +1,3 @@
-from .url import URL as url
 
 PROMPT = [
     {
