@@ -16,7 +16,7 @@ pip install . --editable
 ## simple usage
 minimal template
 ```bash
-flask-create-app new -t min-api -o myProject
+flask-create-app new -o myProject
 ```
 
 or for more interactive with prompt
