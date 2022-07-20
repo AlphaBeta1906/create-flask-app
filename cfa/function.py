@@ -49,6 +49,7 @@ class Create_Project:
         
     def render_and_copy(self,filename: str,filepath: str):
         """
+        render jinja template on file then copy
         `:param:filename` : name of the file that will be copied
         `:param:filepath` : destination of copy
         """
