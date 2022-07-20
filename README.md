@@ -20,7 +20,7 @@ flask-create-app new -o myProject
 
 or
 
-flask-create-app new -o .
+flask-create-app new
 
 ```
 
