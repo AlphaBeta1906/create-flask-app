@@ -84,6 +84,9 @@ class Create_Project:
         
     
     def add_additional_files(self):
+        """
+        add additional files
+        """
         dir = self.output_dir
         database = self.database
         
