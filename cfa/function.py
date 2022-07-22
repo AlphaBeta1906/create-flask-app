@@ -49,7 +49,7 @@ class Create_Project:
         
     def render_and_copy(self,filename: str,filepath: str):
         """
-        render jinja template on file then copy
+        render jinja template then copy file
         `:param:filename` : name of the file that will be copied
         `:param:filepath` : destination of copy
         """
@@ -85,7 +85,7 @@ class Create_Project:
     
     def add_additional_files(self):
         """
-        add additional files
+        add additional files to the template
         """
         dir = self.output_dir
         database = self.database
