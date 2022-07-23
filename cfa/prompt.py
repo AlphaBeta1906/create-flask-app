@@ -2,7 +2,7 @@
 PROMPT = [
     {
         "type": "input",
-        "message": "What's your project name(empty or '.' means current dir): ",
+        "message": "What is your project name(empty or '.' means current dir): ",
         "name": "name",
         "default": "."
     },
