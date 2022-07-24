@@ -19,7 +19,7 @@ PROMPT = [
     },
     {
       "type": "list",
-      "message": "choose user authentication plugin: ",
+      "message": "Select user authentication plugin: ",
       "choices": [
           "none",
           "flask-login",
