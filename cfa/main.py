@@ -12,7 +12,7 @@ click_completion.init()
 @version_option("0.2.1", help="Show version") 
 def create_flask_app():
     """ 
-    create-flask-app is a command line app to generate simple template flask project 
+    create-flask-app is a command line tools to generate simple template flask project 
     version : 0.2.1
     """
     pass
