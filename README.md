@@ -1,6 +1,6 @@
 # create-flask-app
 
-a simple cli tools to create flask  project template  and help you set up flask project more quickly
+a simple cli tools to generate flask project template  and help you set up flask project more quickly
 
 current version : 0.2.1
 ## installation
