@@ -85,7 +85,7 @@ class Create_Project:
     
     def add_additional_files(self):
         """
-        add additional files to the template
+        add additional files to the project template
         """
         dir = self.output_dir
         database = self.database
