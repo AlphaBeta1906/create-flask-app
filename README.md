@@ -17,11 +17,12 @@ pip install . --editable
 minimal template
 ```bash
 flask-create-app new -o myProject
+```
 
 or
 
+```bash
 flask-create-app new
-
 ```
 
 or for more interactive with prompt
