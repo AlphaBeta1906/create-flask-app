@@ -25,7 +25,7 @@ or
 flask-create-app new
 ```
 
-or for more interactive with prompt
+for more interactive with propmt you can use
 
 ```bash
 flask-create-app create
