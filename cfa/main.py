@@ -21,7 +21,7 @@ def create_flask_app():
 @option("-o","--output",default=".",help="output dir",metavar="<dir>")
 def new(output: str):
     """
-    generate minimal project with minimal plugin
+    generate minimal project template with minimal plugin
     """
     
     project = Create_Project(
@@ -34,7 +34,7 @@ def new(output: str):
 @create_flask_app.command()
 def create():
     """
-    generate new project with prompt to more interactive
+    generate new project template with prompt to more interactive
     """
     
     result = prompt(PROMPT,vi_mode=True)
