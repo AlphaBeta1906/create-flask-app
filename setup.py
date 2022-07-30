@@ -3,7 +3,7 @@ from setuptools import setup,find_packages
 setup(
     name="create-flask-project",
     version="0.2.1",
-    description="a simple cli tools to generate template for flask project",
+    description="a simple cli tools to generate project template for flask project",
     long_description= open("README.md","r").read(),
     license="MIT",
     author="fariz",
