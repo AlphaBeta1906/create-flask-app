@@ -71,7 +71,7 @@ class Create_Project:
     
     def generate_random_string(self,n: int):
         """
-        generate random string that will be used in config.py file
+        generate random string that will be used as key in config.py file
         `:param:n` : length of char
         """
         import random
