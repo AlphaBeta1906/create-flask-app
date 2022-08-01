@@ -31,4 +31,4 @@ for more interactive with propmt you can use
 flask-create-app create
 ```
 
-*Note: this project still under development*
+*Note: this project is still under development*
