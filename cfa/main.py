@@ -34,7 +34,7 @@ def new(output: str):
 @create_flask_app.command()
 def create():
     """
-    generate new project template with prompt to more interactive
+    generate new project template with prompt and select the additional plugin
     """
     
     result = prompt(PROMPT,vi_mode=True)
