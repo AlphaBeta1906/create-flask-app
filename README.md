@@ -14,7 +14,7 @@ pip install . --editable
 ```
 
 ## simple usage
-minimal template
+generate minimal template
 ```bash
 flask-create-app new -o myProject
 ```
